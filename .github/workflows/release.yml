@@ -1,4 +1,4 @@
-name: Release Workflow
+name: Create release for github actions
 
 on:
   workflow_call:
