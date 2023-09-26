@@ -11,7 +11,7 @@ permissions:
   id-token: write
   
 env:
-  configFile: ${{ github.workspace }}/compliance/cydigConfig.json  #compliance is the repository name where your compliance-template and cydigConfig.json is located. 
+  configFile: cydig-reusable-workflows/cydigConfig.json  #compliance is the repository name where your compliance-template and cydigConfig.json is located. 
   disableWarningUsersInProd: true
 
 on:
