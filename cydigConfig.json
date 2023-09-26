@@ -1,0 +1,41 @@
+{
+    "teamName": "CyDig", 
+    "usingAzure": true,
+    "threatModeling": {
+        "date": "2023-09-19",
+        "boardsTag": "TM" 
+    },
+    "pentest": {
+        "date": "not specified",
+        "boardsTag": "PT"
+    },
+    "github": {
+        "usingRepos": true,
+        "repos": {
+            "username": "jonathanbokvad"
+        },
+        "usingBoards": false,
+        "boards": {
+            "nameOfBoard": "name-of-boards (use 'not specified' for all boards in project)"
+        }
+    },
+    "scaTool": {
+        "nameOfTool": "CodeQL", 
+        "owaspDependencyCheck": {
+            "reportPath": "Reports/dependency-check-report.csv",
+            "csvPath": "not specified"
+        }
+    },
+    "sastTool": {
+        "nameOfTool": "not specified",
+        "semgrep": {
+            "reportPath": "semgrep-json.json"
+        }
+    },
+    "codeQualityTool": {
+        "nameOfTool": "not specified"
+    },
+    "reposToExclude": {
+        "nameOfRepos": "not-specified"
+    }
+}

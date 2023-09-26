@@ -1,0 +1,90 @@
+#
+# common compliance template workflow that calls checkers to get compliance state
+#
+# any parameters global to the team could be entered here, otherwise override parameters from the pipeline
+# calling this template
+name: Compliance template
+run-name: ${{ github.actor }} is testing out github actions
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  
+env:
+  configFile: ${{ github.workspace }}/compliance/cydigConfig.json  #compliance is the repository name where your compliance-template and cydigConfig.json is located. 
+  disableWarningUsersInProd: true
+
+on:
+  workflow_call:
+    inputs:
+      threatModelingDate:
+        type: string
+      threatModelingTag:
+        type: string
+      pentestDate:
+        type: string
+      pentestTag:
+        type: string
+      scaTool:
+        type: string
+      sastTool:
+        type: string
+      codeQualityTool:
+        type: string
+      nameOfBoard:
+        type: string
+
+jobs:
+  Repository-Scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout self
+        uses: actions/checkout@v4
+        
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+
+      - name: Set Input Variables
+        run: |
+          echo "configFile=${{ env.configFile }}" >> $GITHUB_ENV
+          echo "disableWarningUsersInProd=${{ env.disableWarningUsersInProd }}" >> $GITHUB_ENV
+          echo "threatModelingDate=${{ inputs.threatModelingDate }}" >> $GITHUB_ENV
+          echo "threatModelingTag=${{ inputs.threatModelingTag }}" >> $GITHUB_ENV
+          echo "pentestDate=${{ inputs.pentestDate }}" >> $GITHUB_ENV
+          echo "pentestTag=${{ inputs.pentestTag }}" >> $GITHUB_ENV
+          echo "scaTool=${{ inputs.scaTool }}" >> $GITHUB_ENV
+          echo "sastTool=${{ inputs.sastTool }}" >> $GITHUB_ENV
+          echo "codeQualityTool=${{ inputs.codeQualityTool }}" >> $GITHUB_ENV
+          echo "nameOfBoard=${{ inputs.nameOfBoard }}" >> $GITHUB_ENV
+
+      - name: 'Azure CLI login'
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: 'Run Azure Compliance Controls'
+        uses: Omegapoint/CydigAzureComplianceAction@v1  # Specify the repository and optionally a branch, tag, or commit SHA
+        with:
+          subscription: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: 'Run Compliance Controls'
+        uses:  Omegapoint/CydigComplianceAction@main
+        with:
+          repo-token: ${{ secrets.GH_PAT }}
+          cydigConfigPath: ${{ env.configFile }}
+    
+      # WORK IN PROGRESS
+      - name: 'Run Upload Compliance State'
+        uses: Omegapoint/upload-compliance-state-action@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          cydigConfigPath:  ${{ env.configFile }}
+
+      # WORK IN PROGRESS
+      - name: 'Upload Action results to Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: README-badges-URLS
+          path: ${{ github.workspace }}/compliance/README_badges.txt #compliance is the repository name where your compliance-template and cydigConfig.json is located. 
