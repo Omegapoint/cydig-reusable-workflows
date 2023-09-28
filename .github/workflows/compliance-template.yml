@@ -11,7 +11,7 @@ permissions:
   id-token: write
   
 env:
-  configFile: cydig-reusable-workflows/cydigConfig.json  #compliance is the repository name where your compliance-template and cydigConfig.json is located. 
+  configFile: cydigConfig.json  #compliance is the repository name where your compliance-template and cydigConfig.json is located. 
   disableWarningUsersInProd: true
 
 on:
@@ -40,7 +40,13 @@ jobs:
     steps:
       - name: Checkout self
         uses: actions/checkout@v4
-        
+    
+      - name: Checkout compliance
+        uses: actions/checkout@v4
+        with:
+           repository: Omegapoint/cydig-reusable-workflows
+           path: compliance-template
+
       - name: Install Node.js
         uses: actions/setup-node@v3
 
@@ -83,7 +89,7 @@ jobs:
         uses:  Omegapoint/CydigComplianceAction@v1
         with:
           github-token: ${{ secrets.GH_PAT }}
-          cydigConfigPath: ${{ env.configFile }}
+          cydigConfigPath: compliance-template/${{ env.configFile }}
     
       - name: 'Run Upload Compliance State'
         uses: Omegapoint/upload-compliance-state-action@v1
