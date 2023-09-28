@@ -44,6 +44,16 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
 
+      # Debug, this will be removed
+      - name: Debug ls
+        run: |
+          ls
+      
+      # Debug, this will be removed
+      - name: Debug pwd
+        run: |
+          pwd
+          
       - name: Set Input Variables
         run: |
           echo "configFile=${{ env.configFile }}" >> $GITHUB_ENV
