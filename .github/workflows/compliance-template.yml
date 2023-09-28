@@ -86,7 +86,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: 'Run Azure Compliance Controls'
-        uses: Omegapoint/CydigAzureComplianceAction@v1  # Specify the repository and optionally a branch, tag, or commit SHA
+        uses: Omegapoint/cydig-azure-compliance-action@v1  # Specify the repository and optionally a branch, tag, or commit SHA
         with:
           subscription: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
