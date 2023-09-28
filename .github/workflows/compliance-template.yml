@@ -14,10 +14,10 @@ env:
   configFile: cydigConfig.json  #compliance is the repository name where your compliance-template and cydigConfig.json is located. 
   disableWarningUsersInProd: true
   
-  urlUpdate: ${{ vars.URLUPDATECOMPLIANCESTATE }}
-  urlRead: ${{ vars.URLREADTOREADME }}
-  urlDashboard: ${{ vars.URLDASHBOARD }}
+  urlUpdate: ${{ secrets.URLUPDATECOMPLIANCESTATE }}
+  urlRead: ${{ secrets.URLREADTOREADME }}
   readToReadMeKeyAcessKey: ${{ secrets.READTOREADMEACCESSKEY }}
+  urlDashboard: ${{ vars.URLDASHBOARD }}
 
 on:
   workflow_call:
