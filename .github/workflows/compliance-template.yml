@@ -95,7 +95,7 @@ jobs:
         uses: Omegapoint/upload-compliance-state-action@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          cydigConfigPath:  ${{ env.configFile }}
+          cydigConfigPath:  compliance-template/${{ env.configFile }}
 
       - name: 'Get Upload Action results'
         run: |
