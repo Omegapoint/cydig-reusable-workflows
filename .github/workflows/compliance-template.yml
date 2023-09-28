@@ -11,7 +11,7 @@ permissions:
   id-token: write
   
 env:
-  configFile: cydigConfig.json  #compliance is the repository name where your compliance-template and cydigConfig.json is located. 
+  configFile: cydigConfig.json
   disableWarningUsersInProd: true
   
   urlUpdate: ${{ secrets.URLUPDATECOMPLIANCESTATE }}
@@ -54,16 +54,6 @@ jobs:
 
       - name: Install Node.js
         uses: actions/setup-node@v3
-
-      # Debug, this will be removed
-      - name: Debug ls
-        run: |
-          ls
-      
-      # Debug, this will be removed
-      - name: Debug pwd
-        run: |
-          pwd
           
       - name: Set Input Variables
         run: |
@@ -86,7 +76,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: 'Run Azure Compliance Controls'
-        uses: Omegapoint/cydig-azure-compliance-action@v1  # Specify the repository and optionally a branch, tag, or commit SHA
+        uses: Omegapoint/cydig-azure-compliance-action@v1 
         with:
           subscription: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
@@ -97,6 +87,7 @@ jobs:
           cydigConfigPath: compliance-template/${{ env.configFile }}
     
       - name: 'Run Upload Compliance State'
+        id: upload
         uses: Omegapoint/upload-compliance-state-action@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
