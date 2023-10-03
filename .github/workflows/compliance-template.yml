@@ -83,7 +83,7 @@ jobs:
       - name: 'Run Compliance Controls'
         uses:  Omegapoint/CydigComplianceAction@v1
         with:
-          PAT-token: ${{ secrets.GH_PAT }}
+          PAT-token: ${{ secrets.MY_GITHUB_PAT }}
           cydigConfigPath: compliance-template/${{ env.configFile }}
     
       - name: 'Run Upload Compliance State'
