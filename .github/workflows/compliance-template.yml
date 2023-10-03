@@ -13,15 +13,6 @@ permissions:
 env:
   configFile: cydigConfig.json
   disableWarningUsersInProd: true
-
-  #To be removed
-  urlUpdate: ${{ secrets.URLUPDATECOMPLIANCESTATE }}
-  urlRead: ${{ secrets.URLREADTOREADME }}
-  readToReadMeKeyAcessKey: ${{ secrets.READTOREADMEACCESSKEY }}
-  urlDashboard: ${{ vars.URLDASHBOARD }}
-
-  #To be uncommented
-  #urlUpdate: ${{ secrets.URL_UPDATE_DEV }}
   updateKey: ${{ secrets.CYDIG_API_KEY }}
 
 on:
