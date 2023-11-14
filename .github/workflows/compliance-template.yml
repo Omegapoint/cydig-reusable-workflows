@@ -14,7 +14,7 @@ env:
   configFile: cydigConfig.json
   disableWarningUsersInProd: true
   updateKey: ${{ secrets.CYDIG_API_KEY }}
-  accessKeyBadgeService: ${{ secrets.ACCESS_KEY_BADGES }}
+  accessKeyBadgeService: ${{ vars.ACCESS_KEY_BADGES }}
 
 on:
   workflow_call:
