@@ -2,7 +2,7 @@
     "teamName": "CyDig", 
     "usingAzure": true,
     "threatModeling": {
-        "date": "2023-09-19",
+        "date": "2024-02-02",
         "boardsTag": "TM" 
     },
     "pentest": {
