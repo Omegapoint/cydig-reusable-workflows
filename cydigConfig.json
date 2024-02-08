@@ -1,26 +1,31 @@
 {
-    "teamName": "CyDig", 
+    "teamName": "CyDig",
     "usingAzure": true,
     "threatModeling": {
         "date": "2024-02-02",
-        "boardsTag": "TM" 
+        "boardsTag": "TM"
     },
     "pentest": {
         "date": "2023-10-09",
         "boardsTag": "PT"
     },
     "github": {
-        "usingRepos": true,
-        "repos": {
-            "username": "jonathanbokvad"
-        },
-        "usingBoards": false,
-        "boards": {
-            "nameOfBoard": "name-of-boards (use 'not specified' for all boards in project)"
-        }
+        "usingRepos": true
     },
+    "azureDevOps": {
+        "usingRepos": false,
+        "repos": {
+          "username": "firstname.lastname (usually)"
+        },
+        "usingBoards": true,
+        "boards": {
+          "nameOfBoard": "not specified"
+        },
+        "organizationName": "CyDig",
+        "projectName": "CyDig"
+      },
     "scaTool": {
-        "nameOfTool": "CodeQL", 
+        "nameOfTool": "CodeQL",
         "owaspDependencyCheck": {
             "reportPath": "Reports/dependency-check-report.csv",
             "csvPath": "not specified"
