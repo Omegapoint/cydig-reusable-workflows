@@ -1,46 +1,24 @@
 {
-    "teamName": "CyDig",
-    "usingAzure": true,
-    "threatModeling": {
-        "date": "2024-02-02",
-        "boardsTag": "TM"
-    },
-    "pentest": {
-        "date": "2023-10-09",
-        "boardsTag": "PT"
-    },
-    "github": {
-        "usingRepos": true
-    },
-    "azureDevOps": {
-        "usingRepos": false,
-        "repos": {
-          "username": "firstname.lastname (usually)"
-        },
-        "usingBoards": true,
-        "boards": {
-          "nameOfBoard": "not specified"
-        },
-        "organizationName": "CyDig",
-        "projectName": "CyDig"
-      },
-    "scaTool": {
-        "nameOfTool": "CodeQL",
-        "owaspDependencyCheck": {
-            "reportPath": "Reports/dependency-check-report.csv",
-            "csvPath": "not specified"
-        }
-    },
-    "sastTool": {
-        "nameOfTool": "not specified",
-        "semgrep": {
-            "reportPath": "semgrep-json.json"
-        }
-    },
-    "codeQualityTool": {
-        "nameOfTool": "not specified"
-    },
-    "reposToExclude": {
-        "nameOfRepos": "not-specified"
-    }
+  "teamName": "CyDig",
+  "usingAzure": true,
+  "threatModeling": {
+    "date": "2024-01-01",
+    "boardsTag": "TM"
+  },
+  "pentest": {
+    "date": "2023-01-01",
+    "boardsTag": "PT"
+  },
+  "azureDevOps": {
+    "usingBoards": false
+  },
+  "scaTool": {
+    "nameOfTool": "dependabot"
+  },
+  "sastTool": {
+    "nameOfTool": "SEMGREP"
+  },
+  "codeQualityTool": {
+    "nameOfTool": "not specified"
+  }
 }
