@@ -10,7 +10,12 @@
     "boardsTag": "PT"
   },
   "azureDevOps": {
-    "usingBoards": false
+    "usingBoards": true,
+    "boards": {
+      "organizationName": "CyDig",
+      "projectName": "CyDig",
+      "nameOfBoard": "not specified"
+    }
   },
   "scaTool": {
     "nameOfTool": "dependabot"
