@@ -18,10 +18,10 @@
     }
   },
   "scaTool": {
-    "nameOfTool": "dependabot"
+    "nameOfTool": "Dependabot"
   },
   "sastTool": {
-    "nameOfTool": "SEMGREP"
+    "nameOfTool": "CodeQL"
   },
   "codeQualityTool": {
     "nameOfTool": "not specified"
