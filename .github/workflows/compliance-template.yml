@@ -97,7 +97,7 @@ jobs:
           echo "${{ steps.upload.outputs.readme-badges }}" >> README_badges.txt
 
       - name: 'Upload Action results to Artifact'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: README-badges-URLS
           path: ${{ github.workspace }}/README_badges.txt
