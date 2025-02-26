@@ -84,6 +84,7 @@ jobs:
           PAT-token: ${{ secrets.MY_GITHUB_PAT }}
           cydigConfigPath: compliance-template/${{ env.configFile }}
           accessTokenAzureDevOps: ${{ secrets.DEVOPS_TOKEN_WORK_ITEMS }}
+          slackAccessToken: ${{ secrets.SLACK_TOKEN }}
 
       - name: 'Run Upload Compliance State'
         id: upload
