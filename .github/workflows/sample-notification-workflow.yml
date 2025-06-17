@@ -9,7 +9,9 @@ env:
   configFile: cydigConfig.json
 
 on:
-  workflow_call:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1-5"  # Weekdays at 06:00 UTC. This pipeline needs to be scheduled after the pipeline which uploads compliance results has finished.
 
 jobs:
   build:
