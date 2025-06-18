@@ -17,9 +17,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout self
+        uses: actions/checkout@v4
+        
       # Run the notification action with the provided config path and Slack token
       - name: Run notification action
         uses: Omegapoint/cydig-notification-action@v2
         with:
-          cydigConfigPath: ${{ env.configFile }}
+          cydigConfigPath: compliance-template/${{ env.configFile }}
           slackAccessToken: ${{ secrets.SLACK_TOKEN }}
