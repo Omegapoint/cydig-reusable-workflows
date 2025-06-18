@@ -1,0 +1,25 @@
+# This is a reusable GitHub Actions workflow template for running the notification action.
+# It allows you to pass in configuration paths, URLs, and secrets as inputs.
+
+name: Sample notification action
+description: >
+  Template for running the notification action with customizable config and secrets.
+
+env:
+  configFile: cydigConfig.json
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1-5"  # Weekdays at 06:00 UTC. This pipeline needs to be scheduled after the pipeline which uploads compliance results has finished.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Run the notification action with the provided config path and Slack token
+      - name: Run notification action
+        uses: Omegapoint/cydig-notification-action@v2
+        with:
+          cydigConfigPath: ${{ env.configFile }}
+          slackAccessToken: ${{ secrets.SLACK_TOKEN }}
