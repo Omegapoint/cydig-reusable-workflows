@@ -7,6 +7,7 @@ description: >
 
 env:
   configFile: cydigConfig.json
+  updateKey: ${{ secrets.CYDIG_API_KEY }}
 
 on:
   workflow_dispatch:
@@ -26,3 +27,4 @@ jobs:
         with:
           cydigConfigPath: ${{ env.configFile }}
           slackAccessToken: ${{ secrets.SLACK_TOKEN }}
+
