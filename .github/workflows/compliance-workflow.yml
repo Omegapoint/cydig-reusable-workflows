@@ -7,5 +7,5 @@ on:
 
 jobs:
     CyDig-Compliance-Workflow:
-      uses: omegapoint/cydig-reusable-workflows/.github/workflows/compliance-template.yml@main
+      uses: omegapoint/cydig-reusable-workflows/.github/workflows/compliance-template.yml@linnea-oxenwaldt-patch-1
       secrets: inherit
