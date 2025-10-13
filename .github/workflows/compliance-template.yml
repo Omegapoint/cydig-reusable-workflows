@@ -5,10 +5,10 @@
 # calling this template
 name: Compliance template
 run-name: ${{ github.actor }} is testing out github actions
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+#permissions:
+  #contents: read
+  #pages: write
+  #id-token: write
 
 env:
   configFile: cydigConfig.json
@@ -39,6 +39,10 @@ on:
 jobs:
   Repository-Scan:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
       - name: Checkout self
         uses: actions/checkout@v4
