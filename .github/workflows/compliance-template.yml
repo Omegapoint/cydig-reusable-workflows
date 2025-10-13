@@ -5,10 +5,6 @@
 # calling this template
 name: Compliance template
 run-name: ${{ github.actor }} is testing out github actions
-#permissions:
-  #contents: read
-  #pages: write
-  #id-token: write
 
 env:
   configFile: cydigConfig.json
@@ -39,10 +35,6 @@ on:
 jobs:
   Repository-Scan:
     runs-on: ubuntu-latest
-    #permissions:
-      #contents: read
-      #pages: write
-      #id-token: write
     steps:
       - name: Checkout self
         uses: actions/checkout@v4
@@ -69,14 +61,6 @@ jobs:
           echo "codeQualityTool=${{ inputs.codeQualityTool }}" >> $GITHUB_ENV
           echo "nameOfBoard=${{ inputs.nameOfBoard }}" >> $GITHUB_ENV
 
-      - name: 'Run Compliance Controls'
-        uses:  Omegapoint/CydigComplianceAction@v1
-        with:
-          PAT-token: ${{ secrets.MY_GITHUB_PAT }}
-          cydigConfigPath: compliance-template/${{ env.configFile }}
-          accessTokenAzureDevOps: ${{ secrets.DEVOPS_TOKEN_WORK_ITEMS }}
-          slackAccessToken: ${{ secrets.SLACK_TOKEN }}
-
       - name: 'Azure CLI login'
         uses: azure/login@v1
         with:
@@ -89,6 +73,14 @@ jobs:
         with:
           subscription: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           cydigConfigPath: compliance-template/${{ env.configFile }}
+
+      - name: 'Run Compliance Controls'
+        uses:  Omegapoint/CydigComplianceAction@v1
+        with:
+          PAT-token: ${{ secrets.MY_GITHUB_PAT }}
+          cydigConfigPath: compliance-template/${{ env.configFile }}
+          accessTokenAzureDevOps: ${{ secrets.DEVOPS_TOKEN_WORK_ITEMS }}
+          slackAccessToken: ${{ secrets.SLACK_TOKEN }}
 
       - name: 'Run Upload Compliance State'
         id: upload
