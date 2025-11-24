@@ -2,6 +2,10 @@ name: Create release for github actions
 
 on:
   workflow_call:
+
+permissions:
+  pull-requests: read
+  contents: write
     
 jobs:
   release:
@@ -33,7 +37,7 @@ jobs:
         run: |
           # Display the version from the environment
           echo "Latest Version: ${{ env.version }}"
-          
+
       - name: Determine semver bump from PR labels
         id: determine-bump
         run: |
