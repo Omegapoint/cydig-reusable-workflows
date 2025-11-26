@@ -2,6 +2,10 @@ name: Create release for github actions
 
 on:
   workflow_call:
+
+permissions:
+  pull-requests: read
+  contents: write
     
 jobs:
   release:
@@ -33,31 +37,73 @@ jobs:
         run: |
           # Display the version from the environment
           echo "Latest Version: ${{ env.version }}"
-      
-      - id: label
-        uses: zwaldowski/match-label-action@v4
-        with:
-          allowed: major,minor,patch
-          default_match: none
 
-      - uses: actions-ecosystem/action-bump-semver@v1
-        if: ${{ steps.label.outputs.match != 'none' }}
-        id: bump-semver
-        with:
-          current_version:  ${{ env.version }}
-          level: ${{steps.label.outputs.match}}
-
-      - name: "Creating Release"
-        if: ${{ steps.label.outputs.match != 'none' }}
+      - name: Determine semver bump from PR labels
+        id: determine-bump
         run: |
-          gh release create  ${{ steps.bump-semver.outputs.new_version }} --title " ${{ steps.bump-semver.outputs.new_version }}" --generate-notes
-        env:
-          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          echo "PR_NUMBER=$PR_NUMBER"
+          # Gather labels on the pull request (may be empty)
+          labels=$(gh pr view "$PR_NUMBER" --json labels -q '.labels[].name' || true)
+          echo "PR labels: $labels"
 
-      - uses: JasonEtco/build-and-tag-action@v2
-        if: ${{ steps.label.outputs.match != 'none' }}
+          match="none"
+          # Prefer major > minor > patch
+          if echo "$labels" | grep -qw major; then match=major; fi
+          if [ "$match" = "none" ] && echo "$labels" | grep -qw minor; then match=minor; fi
+          if [ "$match" = "none" ] && echo "$labels" | grep -qw patch; then match=patch; fi
+
+          echo "Determined match: $match"
+          echo "match=$match" >> $GITHUB_ENV
         env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          tag_name: ${{ steps.bump-semver.outputs.new_version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump semver (script)
+        if: ${{ env.match != 'none' }}
+        id: bump
+        run: |
+          # Read current version (set earlier by the workflow). Fallback to v1.0.0
+          cur="${{ env.version }}"
+          if [ -z "$cur" ] || [ "$cur" = "No release found" ]; then
+            cur="v1.0.0"
+          fi
+          # Strip leading 'v'
+          ver="${cur#v}"
+          IFS='.' read -r major minor patch <<< "$ver"
+
+          case "${{ env.match }}" in
+            major)
+              major=$((major + 1)); minor=0; patch=0
+              ;;
+            minor)
+              minor=$((minor + 1)); patch=0
+              ;;
+            patch)
+              patch=$((patch + 1))
+              ;;
+            *) ;;
+          esac
+
+          new_version="v${major}.${minor}.${patch}"
+          echo "new_version=${new_version}" >> $GITHUB_ENV
+          echo "New version: $new_version"
+
+      - name: Create git tag and push
+        if: ${{ env.match != 'none' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Create annotated tag and push it
+          git tag -a "${{ env.new_version }}" -m "Release ${{ env.new_version }}"
+          git push origin "${{ env.new_version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release on GitHub
+        if: ${{ env.match != 'none' }}
+        run: |
+          gh release create "${{ env.new_version }}" --title "${{ env.new_version }}" --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
