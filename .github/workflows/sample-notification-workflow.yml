@@ -36,7 +36,7 @@ jobs:
 
 
       - name: Run notification action
-        uses: Omegapoint/cydig-notification-action@f6602508d5817c61336114323f156c42c9f34935
+        uses: Omegapoint/cydig-notification-action@f89727913d783cc1cfc5c8d808bca929adc02ea5
         with:
           cydigConfigPath: ${{ env.configFile }}
           slackAccessToken: ${{ secrets.SLACK_TOKEN }}
