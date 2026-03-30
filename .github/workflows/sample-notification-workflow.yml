@@ -28,15 +28,15 @@ jobs:
           cydigConfigPath: ${{ env.configFile }}
           slackAccessToken: ${{ secrets.SLACK_TOKEN }}
 
-      # - name: Run notification action
-      #   uses: Omegapoint/cydig-notification-action@v2.1.30
-      #   with:
-      #     cydigConfigPath: ${{ env.configFile }}
-      #     slackAccessToken: ${{ secrets.SLACK_TOKEN }}
+      - name: Run notification action
+        uses: Omegapoint/cydig-notification-action@v2.1.31
+        with:
+          cydigConfigPath: ${{ env.configFile }}
+          slackAccessToken: ${{ secrets.SLACK_TOKEN }}
 
 
-      # - name: Run notification action
-      #   uses: Omegapoint/cydig-notification-action@5f64fcd703adb2c0afb8aed57447b42c7f650c4b
-      #   with:
-      #     cydigConfigPath: ${{ env.configFile }}
-      #     slackAccessToken: ${{ secrets.SLACK_TOKEN }}
+      - name: Run notification action
+        uses: Omegapoint/cydig-notification-action@f6602508d5817c61336114323f156c42c9f34935
+        with:
+          cydigConfigPath: ${{ env.configFile }}
+          slackAccessToken: ${{ secrets.SLACK_TOKEN }}
