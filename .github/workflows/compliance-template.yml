@@ -37,10 +37,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout self
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Checkout compliance
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
            repository: Omegapoint/cydig-reusable-workflows
            path: compliance-template
