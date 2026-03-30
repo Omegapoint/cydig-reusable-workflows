@@ -46,7 +46,7 @@ jobs:
            path: compliance-template
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
 
       - name: Set Input Variables
         run: |
